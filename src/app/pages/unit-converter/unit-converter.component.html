@@ -1,0 +1,44 @@
+<div fxLayoutAlign="start center" fxLayout="column">
+  <div fxLayoutAlign="center center" fxLayout="column" fxFlex="120px">
+    <h1>Unit Converter</h1>
+  </div>
+  <div fxLayout="row" fxLayoutAlign="space-between center" fxLayout.lt-md="column">
+    <div fxLayout="row" fxLayout.lt-sm="column">
+      <mat-form-field appearance="outline">
+        <mat-label>From</mat-label>
+        <mat-select [(ngModel)]="baseUnit" (selectionChange)="baseUnitChanged()"
+                    [compareWith]="compareOptions">
+          <mat-option *ngFor="let unit of unitList" [value]="unit">{{unit.unitName}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+      &nbsp;
+      <mat-form-field appearance="outline">
+        <mat-label>Amount</mat-label>
+        <input type="text" placeholder="Amount" matInput [(ngModel)]="baseAmount" (ngModelChange)="calculateTarget()"
+               [textMask]="baseMask" unMask>
+      </mat-form-field>
+    </div>
+    <div>
+      <button mat-icon-button (click)="swap()">
+        <mat-icon>change_circle</mat-icon>
+      </button>
+    </div>
+    <div fxLayout="row" fxLayout.lt-sm="column">
+      <mat-form-field appearance="outline">
+        <mat-label>To</mat-label>
+        <mat-select [(ngModel)]="targetUnit" (selectionChange)="targetUnitChanged()" [compareWith]="compareOptions">
+          <mat-option *ngFor="let unit of unitList" [value]="unit">{{unit.unitName}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+      &nbsp;
+      <mat-form-field appearance="outline">
+        <mat-label>Amount</mat-label>
+        <input type="text" placeholder="Amount" matInput [(ngModel)]="targetAmount" (ngModelChange)="calculateBase()"
+               [textMask]="targetMask" unMask>
+      </mat-form-field>
+    </div>
+  </div>
+  <br>
+  <span>{{'1' + baseUnit.symbol + ' = ' + (baseUnit.cf / targetUnit.cf).toFixed(2) + ' ' + targetUnit.symbol}}</span>
+</div>
+

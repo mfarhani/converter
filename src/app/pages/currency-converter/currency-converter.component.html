@@ -1,0 +1,50 @@
+<div fxLayoutAlign="start center" fxLayout="column">
+  <div fxLayoutAlign="center center" fxLayout="column" fxFlex="120px">
+    <h1>Currency Converter</h1>
+    <div fxLayout="row" fxLayout.lt-md="column">
+      <div>Check live rates, set rate alerts,</div>
+      <div>receive notifications and more.</div>
+    </div>
+  </div>
+  <div fxLayout="row" fxLayoutAlign="space-between center" fxLayout.lt-md="column">
+    <div fxLayout="row" fxLayout.lt-sm="column">
+      <mat-form-field appearance="outline">
+        <mat-label>From</mat-label>
+        <mat-select [(ngModel)]="baseCurrency" (selectionChange)="baseCurrencyChanged()"
+                    [compareWith]="compareOptions">
+          <mat-option *ngFor="let currency of currencyList" [value]="currency">{{currency.code}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+      &nbsp;
+      <mat-form-field appearance="outline">
+        <mat-label>Amount</mat-label>
+        <input type="text" placeholder="Amount" matInput [(ngModel)]="baseAmount" (ngModelChange)="calculateTarget()"
+               [textMask]="baseMask" unMask>
+      </mat-form-field>
+    </div>
+    <div>
+      <button mat-icon-button color="primary" (click)="swap()">
+        <mat-icon>currency_exchange</mat-icon>
+      </button>
+    </div>
+    <div fxLayout="row" fxLayout.lt-sm="column">
+      <mat-form-field appearance="outline">
+        <mat-label>To</mat-label>
+        <mat-select [(ngModel)]="targetCurrency" (selectionChange)="targetCurrencyChanged()"
+                    [compareWith]="compareOptions">
+          <mat-option *ngFor="let currency of currencyList" [value]="currency">{{currency.code}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+      &nbsp;
+      <mat-form-field appearance="outline">
+        <mat-label>Amount</mat-label>
+        <input type="text" placeholder="Amount" matInput [(ngModel)]="targetAmount" (ngModelChange)="calculateBase()"
+               [textMask]="targetMask" unMask>
+      </mat-form-field>
+    </div>
+  </div>
+  <br>
+  <div>
+    {{exchangeRate}}
+  </div>
+</div>
