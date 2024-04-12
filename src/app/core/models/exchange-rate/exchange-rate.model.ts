@@ -9,6 +9,6 @@ export class ExchangeRate implements IExchangeRate {
   }
 
   toString(): string {
-    return `1 ${this.base} = ${this.rate.toFixed(2)} ${this.target}`;
+    return `1 ${this.base} = ${this.rate.toFixed(4)} ${this.target}`;
   }
 }
